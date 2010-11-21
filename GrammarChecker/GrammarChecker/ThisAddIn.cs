@@ -15,7 +15,6 @@ namespace GrammarChecker
     {
         Word.Document Doc;
         //Erum ekki að nota counterinn eins og er.
-        //ssdfs
         //int counter = 1;
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
