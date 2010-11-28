@@ -83,7 +83,7 @@ namespace GrammarChecker
                     //Sendi result í wordskjalið hér... á ekki að vera svoleiðis í framtíðinni, en gott á meðan við útbúum errorlistann.
                     //Doc.Paragraphs[1].Range.Text = result;
                     //Doc.Sentences.Last.Text += result;
-                    System.Windows.Forms.MessageBox.Show("Greiningin er svona:\n" + result);
+                    System.Windows.Forms.MessageBox.Show("Villulisti:\n" + result);
 
                     String s = Doc.Sentences.Last.Words[3].Text;
                     
@@ -93,8 +93,9 @@ namespace GrammarChecker
                 }
             }
 
-            //SentenceContainer test = new SentenceContainer(currentSelection.Sentences.Last.Words);
-            //test.fall();
+            ErrorList el = new ErrorList();
+            SentenceContainer test = new SentenceContainer(currentSelection.Sentences.Last.Words, el);
+            test.fall();
         }
 
         #region VSTO generated code

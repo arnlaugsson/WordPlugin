@@ -7,5 +7,8 @@ namespace GrammarChecker
 {
     class ErrorList
     {
+        public ErrorList()
+        {
+        }
     }
 }
