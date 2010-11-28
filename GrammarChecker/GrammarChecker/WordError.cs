@@ -7,23 +7,37 @@ namespace GrammarChecker
 {
     class WordError
     {
+        private int wordNumber;
+        private string word;
         private int ruleNumber;
         private string[] corrections;
 
-        public WordError(int ruleNumber, string[] corrections)
+        public WordError(int wordNumber, string word, int ruleNumber, string[] corrections)
         {
+            this.wordNumber = wordNumber;
+            this.word = word; 
             this.ruleNumber = ruleNumber;
             this.corrections = corrections;
         }
 
+        public int getWordNumber()
+        {
+            return this.wordNumber;
+        }
+
+        public string getWord()
+        {
+            return this.word;
+        }
+
         public int getRuleNumber() 
         {
-            return ruleNumber;
+            return this.ruleNumber;
         }
 
         public string[] getcorrections()
         {
-            return corrections;
+            return this.corrections;
         }
     }
 }

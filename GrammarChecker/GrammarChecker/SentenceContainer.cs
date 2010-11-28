@@ -6,37 +6,43 @@ using Word = Microsoft.Office.Interop.Word;
 
 namespace GrammarChecker
 {
-    /* This class contains all words for a centance and can say if it contains errors.
+    /* This class contains all words for a sentance and can say if it contains errors.
      * If there are errors then there should be a suggestion for how to fix it. */
     class SentenceContainer
     {
         private Word.Words sentence;
-        private bool[] markError;
-        private WordError[] error;
-        private ErrorList errors;
+        private bool[] markErrors;
+        private WordError[] wordErrors;
+        private ErrorList errorList;
+        private int sentenceNumber;
 
-        public SentenceContainer(Word.Words sentence, ErrorList errors)
+        public SentenceContainer(Word.Words sentence, ErrorList errors, int sentenceNumber)
         {
             this.sentence = sentence;
-            this.errors = errors;
+            this.errorList = errors;
+            this.sentenceNumber = sentenceNumber;
 
-            markError = new bool[sentence.Count];
-        }
-        
-
-        public void fall() //TODO: Henda út eftir testing.
-        {
-            String ord = sentence.ToString();
-            int i = 0;
+            markErrors = new bool[sentence.Count];
+            markWordsIfError();
         }
 
         public void markWordsIfError()
         {
-            //Sauðakóði
-            //foreach (error in errors) {
-            //    sentence[error.number].Font.Underline = Word.WdUnderline.wdUnderlineWavy;
-            //    sentence[error.number].Font.UnderlineColor = Word.WdColor.wdColorGreen;
-            //}
+            foreach (WordError item in errorList.getErrorList())
+            {
+                sentence[item.getWordNumber()].Font.Underline = Word.WdUnderline.wdUnderlineWavy;
+                sentence[item.getWordNumber()].Font.UnderlineColor = Word.WdColor.wdColorGreen;
+            }
+        }
+
+        public int getSentenceNumber()
+        {
+            return this.sentenceNumber;
+        }
+
+        public WordError[] getWordErrors()
+        {
+            return this.wordErrors;
         }
 
     }
