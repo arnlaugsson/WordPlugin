@@ -8,21 +8,19 @@ namespace GrammarChecker
 {
     /* This class contains all words for a sentance and can say if it contains errors.
      * If there are errors then there should be a suggestion for how to fix it. */
-    class SentenceContainer
+    class WordCollection
     {
         private Word.Words sentence;
-        private bool[] markErrors;
         private WordError[] wordErrors;
         private ErrorList errorList;
         private int sentenceNumber;
 
-        public SentenceContainer(Word.Words sentence, ErrorList errors, int sentenceNumber)
+        public WordCollection(Word.Words sentence, ErrorList errors, int sentenceNumber)
         {
             this.sentence = sentence;
             this.errorList = errors;
             this.sentenceNumber = sentenceNumber;
 
-            markErrors = new bool[sentence.Count];
             markWordsIfError();
         }
 
