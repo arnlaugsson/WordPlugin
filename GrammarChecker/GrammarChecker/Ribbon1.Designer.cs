@@ -36,7 +36,8 @@
         {
             this.tab1 = this.Factory.CreateRibbonTab();
             this.group1 = this.Factory.CreateRibbonGroup();
-            this.button1 = this.Factory.CreateRibbonButton();
+            this.button1CheckText = this.Factory.CreateRibbonButton();
+            this.button1ResetErrors = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             // 
@@ -49,16 +50,23 @@
             // 
             // group1
             // 
-            this.group1.Items.Add(this.button1);
+            this.group1.Items.Add(this.button1CheckText);
+            this.group1.Items.Add(this.button1ResetErrors);
             this.group1.Label = "Icelandic grammar checker";
             this.group1.Name = "group1";
             // 
-            // button1
+            // button1CheckText
             // 
-            this.button1.Label = "Check selected text for grammar errors";
-            this.button1.Name = "button1";
-            this.button1.ShowImage = true;
-            this.button1.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_ClickCheckSelectedText);
+            this.button1CheckText.Label = "Check all or selected text for grammar errors";
+            this.button1CheckText.Name = "button1CheckText";
+            this.button1CheckText.ShowImage = true;
+            this.button1CheckText.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_ClickCheckSelectedText);
+            // 
+            // button1ResetErrors
+            // 
+            this.button1ResetErrors.Label = "Reset errors";
+            this.button1ResetErrors.Name = "button1ResetErrors";
+            this.button1ResetErrors.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1ResetErrors_Click);
             // 
             // GrammarRibbon
             // 
@@ -77,7 +85,8 @@
 
         internal Microsoft.Office.Tools.Ribbon.RibbonTab tab1;
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
-        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1CheckText;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1ResetErrors;
     }
 
     partial class ThisRibbonCollection

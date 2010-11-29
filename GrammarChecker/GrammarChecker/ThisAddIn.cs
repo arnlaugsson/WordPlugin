@@ -20,20 +20,24 @@ namespace GrammarChecker
 
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
+            //Good morning, what can I do for you? ...
+
             //Put the active document as the working Doc.
             Doc = this.Application.ActiveDocument;
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
         {
-            //Bye, bye ...
+            //Have a nice day. Bye, bye ...
         }
 
+        /**
+         * This is the main function that checks for grammar errors.
+         **/
         public void insertText()
         {
-            //Test línur til að parsa
+            //Test lines to parse
             //Bráðum koma jólin. Eða er það ekki? Jú víst.
-            //Góðan daginn Skúli vinur minn. Úti er mikið myrkur.
             //Hún er góði kennarans. Hann er stór strákar. Hún er góð kennari. Hún er góður. Hún hljóp í gegnum skóginum. Hann borðuðu mikið.
 
             //Check if there is a selected text to parse, if not then we take all document.
@@ -56,7 +60,7 @@ namespace GrammarChecker
                 string textToParse = sentencesToParse[sentenceNumber].Text;
                 // Setup the process with the ProcessStartInfo class.
                 ProcessStartInfo start = new ProcessStartInfo();
-                //TODO: Athuga afhverju environment stillingar koma ekki inn. (java finnst ekki nema ég gefi fullan path)
+                //TODO: Athuga afhverju environment stillingar koma ekki inn. (java finnst ekki nema ég gefi fullan path) We need another way to start this.
                 start.FileName = @"C:\Program Files\Java\jre6\bin\javaw.exe"; // Specify exe file.
                 start.Arguments = "-jar C:\\malvinnsla\\Malgrylan\\GrylanGit\\Grylan\\build\\jar\\Gryla.jar \"" + textToParse + "\"";
                 start.UseShellExecute = false;
@@ -92,40 +96,42 @@ namespace GrammarChecker
                     allErrors.Add(we);
                 }
             }
-            
-            //foreach (SentenceContainer sc in sentences)
-            //foreach (WordCollection sc in sentences.ToArray())
-            //{
-            //    //Við ætlum að sækja setningu nr. og athuga hvaða orð eru með villur og setja undirlínu á þau orð.
-            //    WordError[] wordErrors = sc.getWordErrors();
-            //    if (wordErrors != null)
-            //    {
-            //        //foreach (WordError item in sc.getWordErrors())
-            //        for (int i = 0; i < wordErrors.Length; i++)
-            //        {
-            //            WordError item = wordErrors[i];
-            //            Doc.Sentences[sc.getSentenceNumber()].Words[item.getWordNumber()].Font.Underline = Word.WdUnderline.wdUnderlineWavy;
-            //            Doc.Sentences[sc.getSentenceNumber()].Words[item.getWordNumber()].Font.UnderlineColor = Word.WdColor.wdColorGreen;
-            //            //Doc.Sentences[sc.getSentenceNumber()].Words[item.getWordNumber()] ;
-            //            allErrors.Add(item);
-            //        }
-                    
-            //    }
-            //}
-
             displayErrors(allErrors);
         }
 
+        /**
+         * Reset all the errors (removes the green underline).
+         **/
+        public void resetErrors()
+        {
+            foreach (WordCollection sc in sentences.ToArray())
+            {
+                sc.resetErrors();
+            }
+        }
+
+        /**
+         * Display a window with all the errors.
+         **/
         private void displayErrors(ArrayList allErrors)
         {
             string message = "";
             RuleDescriptions rules = new RuleDescriptions();
-            
+            int i = 1;
             foreach (WordError error in allErrors){
-                message += "\"" + error.getWord() + "\" violates " + rules.getRule(error.getRuleNumber()) + "\n\n";
+                message += i++ + ". \"" + error.getWord() + "\" violates " + rules.getRule(error.getRuleNumber()) + "\n\n";
             }
 
-            System.Windows.Forms.MessageBox.Show("List of errors:\n" + message);
+            if (message.Equals(""))
+            {
+                message = "No errrors";
+            }
+            else
+            {
+                message = "List of errors:\n" + message;
+            }
+
+            System.Windows.Forms.MessageBox.Show(message);
         }
 
         /**
@@ -150,12 +156,6 @@ namespace GrammarChecker
             WordError wordError = new WordError(Convert.ToInt32(tokens[0]) + 1, tokens[1], Convert.ToInt32(tokens[2]), suggestions);
             return wordError;
         }
-
-        private void button1_ClickCheckSelectedText(object sender, Word.Document doc, Word.Window Wn)
-        {
-            System.Windows.Forms.MessageBox.Show("POPUP GLUGGI");
-        }
-
 
         #region VSTO generated code
 

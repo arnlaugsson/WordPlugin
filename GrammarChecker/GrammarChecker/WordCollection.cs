@@ -14,12 +14,16 @@ namespace GrammarChecker
         private WordError[] wordErrors;
         private ErrorList errorList;
         private int sentenceNumber;
+        private Word.WdUnderline[] wordUnderline;
+        private Word.WdColor[] wordColor;
 
         public WordCollection(Word.Words sentence, ErrorList errors, int sentenceNumber)
         {
             this.sentence = sentence;
             this.errorList = errors;
             this.sentenceNumber = sentenceNumber;
+            this.wordUnderline = new Word.WdUnderline[sentence.Count];
+            this.wordColor = new Word.WdColor[sentence.Count];
 
             markWordsIfError();
         }
@@ -28,8 +32,23 @@ namespace GrammarChecker
         {
             foreach (WordError item in errorList.getErrorList())
             {
+                //TODO: Setja gamla gildið eitthvað.
+                //Word.WdUnderline oldUnderlineFormat = sentence[item.getWordNumber()].Font.Underline;
+                //Word.WdColor oldColor = sentence[item.getWordNumber()].Font.UnderlineColor;
+                wordUnderline[item.getWordNumber()] = sentence[item.getWordNumber()].Font.Underline;
+                wordColor[item.getWordNumber()] = sentence[item.getWordNumber()].Font.UnderlineColor;
+
                 sentence[item.getWordNumber()].Font.Underline = Word.WdUnderline.wdUnderlineWavy;
                 sentence[item.getWordNumber()].Font.UnderlineColor = Word.WdColor.wdColorGreen;
+            }
+        }
+
+        public void resetErrors()
+        {
+            foreach (WordError item in errorList.getErrorList())
+            {
+                sentence[item.getWordNumber()].Font.Underline = wordUnderline[item.getWordNumber()];
+                sentence[item.getWordNumber()].Font.UnderlineColor = wordColor[item.getWordNumber()];
             }
         }
 

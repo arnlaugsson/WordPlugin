@@ -17,7 +17,7 @@ namespace GrammarChecker
                 case 4: return "Rule 4 or 5: Disagreement in gender or number between the subject and the complement";
                 case 5: return "Rule 4 or 5: Disagreement in gender or number between the subject and the complement";
                 case 6: return "Rule 6: Disagreement in case in a prepositional phrase";
-                case 7: return "Rule 7: Disagreement in number between subject and related word";
+                case 7: return "Rule 7: Disagreement in number between subject and related verb";
                 default: return "Undocumented error";
             }
 
