@@ -38,6 +38,7 @@
             this.group1 = this.Factory.CreateRibbonGroup();
             this.button1CheckText = this.Factory.CreateRibbonButton();
             this.button1ResetErrors = this.Factory.CreateRibbonButton();
+            this.button1ShowErrorList = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             // 
@@ -51,22 +52,31 @@
             // group1
             // 
             this.group1.Items.Add(this.button1CheckText);
+            this.group1.Items.Add(this.button1ShowErrorList);
             this.group1.Items.Add(this.button1ResetErrors);
             this.group1.Label = "Icelandic grammar checker";
             this.group1.Name = "group1";
             // 
             // button1CheckText
             // 
-            this.button1CheckText.Label = "Check all or selected text for grammar errors";
+            this.button1CheckText.Label = "Check grammar";
             this.button1CheckText.Name = "button1CheckText";
             this.button1CheckText.ShowImage = true;
             this.button1CheckText.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1_ClickCheckSelectedText);
             // 
             // button1ResetErrors
             // 
-            this.button1ResetErrors.Label = "Reset errors";
+            this.button1ResetErrors.Label = "Clear error list";
             this.button1ResetErrors.Name = "button1ResetErrors";
+            this.button1ResetErrors.ShowImage = true;
             this.button1ResetErrors.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1ResetErrors_Click);
+            // 
+            // button1ShowErrorList
+            // 
+            this.button1ShowErrorList.Label = "Show last error list";
+            this.button1ShowErrorList.Name = "button1ShowErrorList";
+            this.button1ShowErrorList.ShowImage = true;
+            this.button1ShowErrorList.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.button1ShowErrorList_Click);
             // 
             // GrammarRibbon
             // 
@@ -87,6 +97,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1CheckText;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton button1ResetErrors;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton button1ShowErrorList;
     }
 
     partial class ThisRibbonCollection

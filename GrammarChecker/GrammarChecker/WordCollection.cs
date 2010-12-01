@@ -11,7 +11,6 @@ namespace GrammarChecker
     class WordCollection
     {
         private Word.Words sentence;
-        private WordError[] wordErrors;
         private ErrorList errorList;
         private int sentenceNumber;
         private Word.WdUnderline[] wordUnderline;
@@ -32,12 +31,10 @@ namespace GrammarChecker
         {
             foreach (WordError item in errorList.getErrorList())
             {
-                //TODO: Setja gamla gildið eitthvað.
-                //Word.WdUnderline oldUnderlineFormat = sentence[item.getWordNumber()].Font.Underline;
-                //Word.WdColor oldColor = sentence[item.getWordNumber()].Font.UnderlineColor;
+                //Save the current underline state and color.
                 wordUnderline[item.getWordNumber()] = sentence[item.getWordNumber()].Font.Underline;
                 wordColor[item.getWordNumber()] = sentence[item.getWordNumber()].Font.UnderlineColor;
-
+                //Put curly underline in a green color.
                 sentence[item.getWordNumber()].Font.Underline = Word.WdUnderline.wdUnderlineWavy;
                 sentence[item.getWordNumber()].Font.UnderlineColor = Word.WdColor.wdColorGreen;
             }
@@ -47,19 +44,21 @@ namespace GrammarChecker
         {
             foreach (WordError item in errorList.getErrorList())
             {
-                sentence[item.getWordNumber()].Font.Underline = wordUnderline[item.getWordNumber()];
-                sentence[item.getWordNumber()].Font.UnderlineColor = wordColor[item.getWordNumber()];
+                try
+                {
+                    sentence[item.getWordNumber()].Font.Underline = wordUnderline[item.getWordNumber()];
+                    sentence[item.getWordNumber()].Font.UnderlineColor = wordColor[item.getWordNumber()];
+                }
+                catch (Exception ex)
+                {
+                    //Do nothing. Line was probably deleted before the errors where cleared, so we don't care about this line.
+                }
             }
         }
 
         public int getSentenceNumber()
         {
             return this.sentenceNumber;
-        }
-
-        public WordError[] getWordErrors()
-        {
-            return this.wordErrors;
         }
 
     }

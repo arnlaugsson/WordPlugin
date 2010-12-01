@@ -29,5 +29,10 @@ namespace GrammarChecker
             Globals.ThisAddIn.resetErrors();
         }
 
+        private void button1ShowErrorList_Click(object sender, RibbonControlEventArgs e)
+        {
+            Globals.ThisAddIn.redisplayErrors();
+        }
+
     }
 }
